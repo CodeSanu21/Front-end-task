@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form Validation</title>
+  <style>
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: darkorange;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color:black;
+            padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #007BFF;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: #dc3545;
+      font-size: 12px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .success {
+      color: #28a745;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h1>Login</h1>
+    <form id="loginForm">
+      <div>
+        <input type="text" id="email" placeholder="Email">
+        <p class="error" id="emailError">Please enter a valid email address.</p>
+      </div>
+      <div>
+        <input type="password" id="password" placeholder="Password">
+        <p class="error" id="passwordError">Password must be at least 8 characters long.</p>
+      </div>
+      <button type="button" id="submitBtn">Login</button>
+      <p class="success" id="successMessage"></p>
+    </form>
+  </div>
+
+  <script>
+    // Select elements
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+    const successMessage = document.getElementById('successMessage');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Email validation function
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    // Password validation function
+    function isValidPassword(password) {
+      return password.length >= 8;
+    }
+
+    // Validation logic on form submit
+    submitBtn.addEventListener('click', () => {
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      let isValid = true;
+
+      // Reset error messages
+      emailError.style.display = 'none';
+      passwordError.style.display = 'none';
+      successMessage.textContent = '';
+
+      // Validate email
+      if (!isValidEmail(email)) {
+        emailError.style.display = 'block';
+        isValid = false;
+      }
+
+      // Validate password
+      if (!isValidPassword(password)) {
+        passwordError.style.display = 'block';
+        isValid = false;
+      }
+
+      // If valid, show success message
+      if (isValid) {
+        successMessage.textContent = 'Login successful!';
+        emailInput.value = '';
+        passwordInput.value = '';
+      }
+    });
+  </script>
+</body>
+
+</html>
